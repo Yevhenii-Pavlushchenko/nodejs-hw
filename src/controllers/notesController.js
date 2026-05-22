@@ -1,6 +1,6 @@
 import createError from 'http-errors';
 
-import { Note } from '../models/notes.js';
+import { Note } from '../models/note.js';
 
 // Запрос на все нотатки
 export const getAllNotes = async (req, res, next) => {
