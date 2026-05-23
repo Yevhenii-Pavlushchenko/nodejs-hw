@@ -1,6 +1,6 @@
 import { Joi, Segments } from 'celebrate';
 import { isValidObjectId } from 'mongoose';
-import { TAGS } from '../constans/tags.js';
+import { TAGS } from '../constants/tags.js';
 
 // Схема для перевірки параметра notelist
 export const getAllNotesSchema = {
@@ -50,5 +50,5 @@ export const updateNoteSchema = {
     tag: Joi.string()
       .valid(...TAGS)
       .optional(),
-  }),
+  }).or('title', 'content', 'tag'),
 };
