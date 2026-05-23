@@ -50,5 +50,5 @@ export const updateNoteSchema = {
     tag: Joi.string()
       .valid(...TAGS)
       .optional(),
-  }),
+  }).or('title', 'content', 'tag'),
 };
