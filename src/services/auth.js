@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 
 import { FIFTEEN_MINUTES, ONE_DAY } from '../constants/time.js';
-import { Session } from '../models/Session.js';
+import { Session } from '../models/session.js';
 
 export const createSession = async (userId) => {
   const accessToken = crypto.randomUUID();

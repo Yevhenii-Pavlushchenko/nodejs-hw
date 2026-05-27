@@ -14,8 +14,12 @@ import {
   noteIdSchema,
   updateNoteSchema,
 } from '../validations/notesValidation.js';
+import { authenticate } from '../middleware/authenticate.js';
 
 const router = Router();
+
+router.use('/notes', authenticate, getAllNotes);
+router.post('/notes', authenticate, createNote);
 
 // роутер на весь список нотаток
 router.get('/notes', celebrate(getAllNotesSchema), getAllNotes);
