@@ -14,22 +14,38 @@ import {
   noteIdSchema,
   updateNoteSchema,
 } from '../validations/notesValidation.js';
+import { authenticate } from '../middleware/authenticate.js';
 
 const router = Router();
 
 // роутер на весь список нотаток
-router.get('/notes', celebrate(getAllNotesSchema), getAllNotes);
+router.get('/notes', authenticate, celebrate(getAllNotesSchema), getAllNotes);
 
 // роутер на 1 нотатку по айдишке
-router.get('/notes/:noteId', celebrate(noteIdSchema), getNoteById);
+router.get(
+  '/notes/:noteId',
+  authenticate,
+  celebrate(noteIdSchema),
+  getNoteById,
+);
 
 //  Роутер создания новой нотатки
-router.post('/notes', celebrate(createNoteSchema), createNote);
+router.post('/notes', authenticate, celebrate(createNoteSchema), createNote);
 
 //! Роутер удаления нотатки
-router.delete('/notes/:noteId', celebrate(noteIdSchema), deleteNote);
+router.delete(
+  '/notes/:noteId',
+  authenticate,
+  celebrate(noteIdSchema),
+  deleteNote,
+);
 
 //? Роутер обновления нотатки
-router.patch('/notes/:noteId', celebrate(updateNoteSchema), updateNote);
+router.patch(
+  '/notes/:noteId',
+  authenticate,
+  celebrate(updateNoteSchema),
+  updateNote,
+);
 
 export default router;
