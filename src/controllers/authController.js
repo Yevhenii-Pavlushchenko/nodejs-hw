@@ -67,7 +67,10 @@ export const refreshUserSession = async (req, res) => {
     throw createHttpError(401, 'Session credentials missing');
   }
 
-  const session = await Session.findOne({ _id: sessionId, refreshToken });
+  const session = await Session.findOne({
+    _id: sessionId,
+    refreshToken,
+  });
 
   if (!session) {
     throw createHttpError(401, 'Session not found');
@@ -75,6 +78,11 @@ export const refreshUserSession = async (req, res) => {
 
   if (session.refreshTokenValidUntil < new Date()) {
     await Session.deleteOne({ _id: session._id });
+
+    res.clearCookie('sessionId');
+    res.clearCookie('accessToken');
+    res.clearCookie('refreshToken');
+
     throw createHttpError(401, 'Session token expired');
   }
 
@@ -85,7 +93,6 @@ export const refreshUserSession = async (req, res) => {
   setSessionCookies(res, newSession);
 
   res.status(200).json({
-    accessToken: newSession.accessToken,
-    refreshToken: newSession.refreshToken,
+    message: 'Session refreshed',
   });
 };
