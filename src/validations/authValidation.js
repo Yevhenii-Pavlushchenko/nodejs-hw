@@ -26,3 +26,9 @@ export const resetPasswordSchema = {
     token: Joi.string().required(),
   }),
 };
+
+export const loadAvatarSchema = {
+  [Segments.BODY]: Joi.object({
+    userId: Joi.string().required(),
+  }),
+};
